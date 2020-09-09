@@ -9,13 +9,15 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  private readonly baseUrl = 'http://localhost:3000/';
+
   constructor() {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const url = 'http://localhost:3000/' + request.url.replace(/^\//, '');
+    const url = this.baseUrl + request.url.replace(/^\//, '');
     request = request.clone({ url });
     return next.handle(request);
   }

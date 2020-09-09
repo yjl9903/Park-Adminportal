@@ -22,6 +22,6 @@ export class UserService {
   }
 
   get isLogin(): boolean {
-    return this.user === undefined;
+    return this.user !== undefined;
   }
 }

@@ -10,12 +10,11 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { zh_CN } from 'ng-zorro-antd/i18n';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IconsProviderModule } from './icons-provider.module';
-import { AuthInterceptor } from './auth.interceptor';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 registerLocaleData(zh);
 
@@ -30,7 +29,6 @@ registerLocaleData(zh);
     BrowserAnimationsModule,
     NzMenuModule,
     NzLayoutModule,
-    NzBreadCrumbModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },

@@ -1,0 +1,29 @@
+<nz-layout class="app-layout">
+  <nz-header>
+    <div class="logo">
+      <a routerLink="/" style="color: white">停车场管理系统</a>
+    </div>
+    <div>
+      <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li nz-menu-item nzSelected>车辆</li>
+        <li nz-menu-item>停车卡</li>
+        <li nz-menu-item>用户</li>
+      </ul>
+    </div>
+  </nz-header>
+  <nz-layout>
+    <nz-sider nzWidth="200px" nzTheme="light">
+      <ul nz-menu nzMode="inline" class="sider-menu">
+        <li nz-menu-item nzSelected>option1</li>
+        <li nz-menu-item>option2</li>
+        <li nz-menu-item>option3</li>
+        <li nz-menu-item>option4</li>
+      </ul>
+    </nz-sider>
+    <nz-layout class="inner-layout">
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
