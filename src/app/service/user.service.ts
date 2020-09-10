@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export interface User {
+  id: number;
+  userName: string;
   type: 'admin';
 }
 
@@ -25,11 +27,6 @@ export class UserService {
   }
 
   login(username: string, password: string): Observable<User> {
-    if (username === 'admin' && password === '123') {
-      const res = of({ type: 'admin' } as User);
-      res.subscribe(() => (this.user = { type: 'admin' }));
-      return res;
-    }
     const loginReq = this.httpClient.post<User>(this.loginUrl, {
       username,
       password,
