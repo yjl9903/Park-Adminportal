@@ -14,6 +14,18 @@ const routes: Routes = [
         loadChildren: () =>
           import('../park/park.module').then((m) => m.ParkModule),
       },
+      {
+        path: 'card',
+        pathMatch: 'full',
+        loadChildren: () =>
+          import('../card/card.module').then((m) => m.CardModule),
+      },
+      {
+        path: 'user',
+        pathMatch: 'full',
+        loadChildren: () =>
+          import('../user/user.module').then((m) => m.UserModule),
+      },
     ],
   },
 ];
