@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, UrlTree, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 import { UserService } from '../service/user.service';
 
 @Injectable({
@@ -11,11 +14,15 @@ export class LoginGuard implements CanActivate {
     private readonly userService: UserService
   ) {}
 
-  canActivate(): boolean | UrlTree {
-    if (this.userService.isLogin) {
-      return this.router.parseUrl('/home');
-    } else {
-      return true;
-    }
+  canActivate(): Observable<boolean | UrlTree> {
+    return this.userService.isLogin.pipe(
+      map((flag) => {
+        if (flag) {
+          return this.router.parseUrl('/home/park');
+        } else {
+          return true;
+        }
+      })
+    );
   }
 }

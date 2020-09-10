@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 export interface User {
   id: number;
@@ -12,31 +13,54 @@ export interface User {
   providedIn: 'root',
 })
 export class UserService {
-  private loginUrl = '/login';
+  private readonly loginUrl = '/login';
+  private readonly infoUrl = '/info';
 
-  private localStorage = window.localStorage;
+  private readonly accessTokenKey = 'access_token';
 
   private user: User = undefined;
 
-  private readonly innerAccessToken: string = undefined;
+  private innerAccessToken: string = undefined;
 
   constructor(private readonly httpClient: HttpClient) {
-    if (this.localStorage) {
-      this.innerAccessToken = this.localStorage.getItem('access_token');
+    if (window.localStorage) {
+      this.innerAccessToken = window.localStorage.getItem(this.accessTokenKey);
     }
   }
 
   login(username: string, password: string): Observable<User> {
-    const loginReq = this.httpClient.post<User>(this.loginUrl, {
-      username,
-      password,
-    });
-    loginReq.subscribe((user) => (this.user = user));
-    return loginReq;
+    const loginReq = this.httpClient.post<{ cookieID: string; userInfo: User }>(
+      this.loginUrl,
+      {
+        username,
+        password,
+      }
+    );
+    return loginReq.pipe(
+      map(({ cookieID, userInfo }) => {
+        this.innerAccessToken = cookieID;
+        window.localStorage.setItem(this.accessTokenKey, cookieID);
+        this.user = userInfo;
+        return userInfo;
+      })
+    );
   }
 
-  get isLogin(): boolean {
-    return this.user !== undefined;
+  get isLogin(): Observable<boolean> {
+    if (this.user) {
+      return of(true);
+    } else if (this.innerAccessToken) {
+      return this.httpClient.get<User>(this.infoUrl).pipe(
+        map(() => true),
+        catchError(() => {
+          this.innerAccessToken = undefined;
+          window.localStorage.removeItem(this.accessTokenKey);
+          return of(false);
+        })
+      );
+    } else {
+      return of(false);
+    }
   }
 
   get accessToken(): string | undefined {

@@ -8,13 +8,13 @@ import {
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
+import { UserService } from '../service/user.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private readonly baseUrl;
 
-  constructor() {
-    console.log(environment);
+  constructor(private readonly userService: UserService) {
     this.baseUrl = environment.baseUrl;
   }
 
@@ -23,7 +23,10 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     const url = this.baseUrl + request.url.replace(/^\//, '');
-    request = request.clone({ url });
+    const params = this.userService.accessToken
+      ? { cookie: this.userService.accessToken }
+      : {};
+    request = request.clone({ url, setParams: { ...params } });
     return next.handle(request);
   }
 }
