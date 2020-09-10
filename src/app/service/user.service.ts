@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+
+export interface User {
+  type: 'admin';
+}
 
 @Injectable({
   providedIn: 'root',
@@ -8,20 +12,37 @@ import { Observable } from 'rxjs';
 export class UserService {
   private loginUrl = '/login';
 
-  private user: any = undefined;
+  private localStorage = window.localStorage;
 
-  constructor(private readonly httpClient: HttpClient) {}
+  private user: User = undefined;
 
-  login(username: string, password: string): Observable<any> {
-    const loginReq = this.httpClient.post<any>(this.loginUrl, {
+  private readonly innerAccessToken: string = undefined;
+
+  constructor(private readonly httpClient: HttpClient) {
+    if (this.localStorage) {
+      this.innerAccessToken = this.localStorage.getItem('access_token');
+    }
+  }
+
+  login(username: string, password: string): Observable<User> {
+    if (username === 'admin' && password === '123') {
+      const res = of({ type: 'admin' } as User);
+      res.subscribe(() => (this.user = { type: 'admin' }));
+      return res;
+    }
+    const loginReq = this.httpClient.post<User>(this.loginUrl, {
       username,
       password,
     });
-    loginReq.subscribe((user: any) => (this.user = user));
+    loginReq.subscribe((user) => (this.user = user));
     return loginReq;
   }
 
   get isLogin(): boolean {
     return this.user !== undefined;
+  }
+
+  get accessToken(): string | undefined {
+    return this.innerAccessToken;
   }
 }

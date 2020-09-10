@@ -1,1 +1,37 @@
-<p>login works!</p>
+<div id="login">
+  <form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+    <h2 style="text-align: center">停车场管理系统</h2>
+    <h3 style="text-align: center">登 录</h3>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入用户名">
+        <nz-input-group nzPrefixIcon="user">
+          <input
+            type="text"
+            nz-input
+            formControlName="username"
+            placeholder="用户名"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入密码">
+        <nz-input-group nzPrefixIcon="lock">
+          <input
+            type="password"
+            nz-input
+            formControlName="password"
+            placeholder="密码"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <button
+      nz-button
+      class="login-form-button login-form-margin"
+      [nzType]="'primary'"
+    >
+      登录
+    </button>
+  </form>
+</div>

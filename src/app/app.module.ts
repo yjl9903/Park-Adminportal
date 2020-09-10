@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
@@ -15,20 +15,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IconsProviderModule } from './icons-provider.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { LoginComponent } from './pages/login/login.component';
+import { NzButtonModule, NzFormModule, NzInputModule } from 'ng-zorro-antd';
 
 registerLocaleData(zh);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     IconsProviderModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NzButtonModule,
     NzMenuModule,
     NzLayoutModule,
+    NzFormModule,
+    NzInputModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },
