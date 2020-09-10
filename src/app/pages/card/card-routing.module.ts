@@ -5,6 +5,7 @@ import { CardComponent } from './card.component';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     component: CardComponent,
   },
 ];

@@ -5,10 +5,9 @@ import { LoginGuard } from './guard/login.guard';
 import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/home' },
+  { path: '', pathMatch: 'full', redirectTo: 'home/park' },
   {
     path: 'login',
-    pathMatch: 'full',
     component: LoginComponent,
     canActivate: [LoginGuard],
   },
@@ -21,7 +20,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

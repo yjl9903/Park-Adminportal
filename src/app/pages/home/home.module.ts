@@ -5,9 +5,10 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
+import { NzButtonModule } from 'ng-zorro-antd';
 
 @NgModule({
-  imports: [HomeRoutingModule, NzLayoutModule, NzMenuModule],
+  imports: [HomeRoutingModule, NzButtonModule, NzLayoutModule, NzMenuModule],
   declarations: [HomeComponent],
   exports: [HomeComponent],
 })

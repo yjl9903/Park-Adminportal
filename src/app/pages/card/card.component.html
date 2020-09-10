@@ -1,1 +1,13 @@
-<p>card works!</p>
+<nz-layout class="full-height">
+  <nz-sider nzWidth="200px" nzTheme="light">
+    <ul nz-menu nzMode="inline" class="sider-menu">
+      <li nz-menu-item nzSelected>注册新卡</li>
+      <li nz-menu-item>所有卡</li>
+    </ul>
+  </nz-sider>
+  <nz-layout class="inner-layout">
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
