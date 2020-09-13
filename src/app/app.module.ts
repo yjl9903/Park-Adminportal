@@ -16,7 +16,12 @@ import { AppComponent } from './app.component';
 import { IconsProviderModule } from './icons-provider.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { LoginComponent } from './pages/login/login.component';
-import { NzButtonModule, NzFormModule, NzInputModule } from 'ng-zorro-antd';
+import {
+  NzButtonModule,
+  NzFormModule,
+  NzInputModule,
+  NzMessageModule,
+} from 'ng-zorro-antd';
 
 registerLocaleData(zh);
 
@@ -35,6 +40,7 @@ registerLocaleData(zh);
     NzLayoutModule,
     NzFormModule,
     NzInputModule,
+    NzMessageModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },

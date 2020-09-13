@@ -6,6 +6,10 @@
   height: 100%;
 }
 
+.font-weight-bold {
+  font-weight: bold;
+}
+
 .logo {
   display: inline-block;
   width: 120px;

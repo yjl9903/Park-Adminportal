@@ -1,0 +1,20 @@
+<h2>用户信息</h2>
+<p>
+  <span class="font-weight-bold">用户名</span>
+  <span>{{ user.userName }}</span>
+</p>
+<p>
+  <span class="font-weight-bold" style="letter-spacing: 2em">密码</span>
+  <span
+    ><input
+      nz-input
+      type="password"
+      placeholder=""
+      [(ngModel)]="password"
+      style="width: auto"
+  /></span>
+</p>
+<div>
+  <button nz-button nzType="primary" (click)="updateInfo()">修改</button>
+  <button nz-button nzType="primary" nzDanger (click)="logout()">退出</button>
+</div>

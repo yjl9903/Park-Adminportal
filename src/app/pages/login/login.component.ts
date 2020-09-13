@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserService } from '../../service/user.service';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly message: NzMessageService
   ) {}
 
   submitForm(): void {
@@ -33,6 +35,7 @@ export class LoginComponent {
       },
       error: () => {
         this.loginForm.reset();
+        this.message.error('服务器错误');
       },
     });
   }

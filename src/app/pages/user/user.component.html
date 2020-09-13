@@ -2,7 +2,8 @@
   <nz-sider nzWidth="200px" nzTheme="light">
     <ul nz-menu nzMode="inline" class="sider-menu">
       <li nz-menu-item nzSelected>用户信息</li>
-      <li nz-menu-item>管理用户</li>
+      <li nz-menu-item *ngIf="isAdmin()" routerLink="create">添加用户</li>
+      <li nz-menu-item *ngIf="isAdmin()" routerLink="list">管理用户</li>
     </ul>
   </nz-sider>
   <nz-layout class="inner-layout">

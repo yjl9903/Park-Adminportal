@@ -14,11 +14,12 @@ export interface User {
 })
 export class UserService {
   private readonly loginUrl = '/login';
+  private readonly logoutUrl = '/logout';
   private readonly infoUrl = '/info';
 
   private readonly accessTokenKey = 'access_token';
 
-  private user: User = undefined;
+  user: User = undefined;
 
   private innerAccessToken: string = undefined;
 
@@ -46,12 +47,42 @@ export class UserService {
     );
   }
 
+  logout(): Observable<void> {
+    this.user = undefined;
+    this.innerAccessToken = undefined;
+    window.localStorage.removeItem(this.accessTokenKey);
+    return this.httpClient.post(this.logoutUrl, {}).pipe(map(() => {}));
+  }
+
   get isLogin(): Observable<boolean> {
     if (this.user) {
       return of(true);
     } else if (this.innerAccessToken) {
       return this.httpClient.get<User>(this.infoUrl).pipe(
-        map(() => true),
+        map((user: User) => {
+          this.user = user;
+          return true;
+        }),
+        catchError(() => {
+          this.innerAccessToken = undefined;
+          window.localStorage.removeItem(this.accessTokenKey);
+          return of(false);
+        })
+      );
+    } else {
+      return of(false);
+    }
+  }
+
+  get isAdmin(): Observable<boolean> {
+    if (this.user) {
+      return of(this.user.type === 'admin');
+    } else if (this.innerAccessToken) {
+      return this.httpClient.get<User>(this.infoUrl).pipe(
+        map((user: User) => {
+          this.user = user;
+          return user.type === 'admin';
+        }),
         catchError(() => {
           this.innerAccessToken = undefined;
           window.localStorage.removeItem(this.accessTokenKey);
