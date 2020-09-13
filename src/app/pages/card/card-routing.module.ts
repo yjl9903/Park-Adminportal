@@ -7,7 +7,6 @@ import { CardListComponent } from './card-list/card-list.component';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: CardComponent,
     children: [
       {
