@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class UserInfoComponent {
   user: User;
 
+  changePass = false;
   password: string;
 
   constructor(
@@ -19,7 +20,12 @@ export class UserInfoComponent {
     this.user = this.userService.user;
   }
 
-  updateInfo(): void {}
+  updateInfo(): void {
+    if (this.changePass) {
+    } else {
+      this.changePass = true;
+    }
+  }
 
   logout(): void {
     this.userService.logout().subscribe(() => {

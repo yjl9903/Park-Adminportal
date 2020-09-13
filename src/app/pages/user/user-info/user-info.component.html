@@ -1,10 +1,22 @@
 <h2>用户信息</h2>
 <nz-divider></nz-divider>
 <p>
+  <span class="font-weight-bold">编号</span>
+  <span style="margin-left: 16px">{{ user.id }}</span>
+</p>
+<p>
   <span class="font-weight-bold">用户名</span>
   <span style="margin-left: 16px">{{ user.username }}</span>
 </p>
 <p>
+  <span class="font-weight-bold">类型</span>
+  <span style="margin-left: 16px"
+    ><nz-tag [nzColor]="user.type === 'admin' ? 'green' : 'blue'">{{
+      user.type === 'admin' ? '超级管理员' : '普通管理员'
+    }}</nz-tag></span
+  >
+</p>
+<p *ngIf="changePass">
   <span class="font-weight-bold" style="letter-spacing: 1em">密码</span>
   <span
     ><input
