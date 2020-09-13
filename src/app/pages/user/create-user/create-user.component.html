@@ -1,5 +1,15 @@
 <h2>添加用户</h2>
+<nz-divider></nz-divider>
 <form [formGroup]="createForm" class="login-form" (ngSubmit)="submitForm()">
+  <nz-alert
+    *ngIf="
+      createForm.errors?.identityRevealed &&
+      (createForm.touched || createForm.dirty)
+    "
+    nzType="error"
+    nzMessage="两次密码不同"
+    style="margin-bottom: 16px"
+  ></nz-alert>
   <nz-form-item>
     <nz-form-control nzErrorTip="请输入用户名">
       <nz-input-group nzPrefixIcon="user">
@@ -20,6 +30,18 @@
           nz-input
           formControlName="password"
           placeholder="密码"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入确认密码">
+      <nz-input-group nzPrefixIcon="lock">
+        <input
+          type="password"
+          nz-input
+          formControlName="password2"
+          placeholder="确认密码"
         />
       </nz-input-group>
     </nz-form-control>

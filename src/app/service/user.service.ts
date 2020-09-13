@@ -5,7 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 
 export interface User {
   id: number;
-  userName: string;
+  username: string;
   type: 'admin';
 }
 
@@ -15,7 +15,9 @@ export interface User {
 export class UserService {
   private readonly loginUrl = '/login';
   private readonly logoutUrl = '/logout';
+  private readonly createUserUrl = '/manage';
   private readonly infoUrl = '/info';
+  private readonly allUsersUrl = '/manage';
 
   private readonly accessTokenKey = 'access_token';
 
@@ -52,6 +54,17 @@ export class UserService {
     this.innerAccessToken = undefined;
     window.localStorage.removeItem(this.accessTokenKey);
     return this.httpClient.post(this.logoutUrl, {}).pipe(map(() => {}));
+  }
+
+  createUser(username: string, password: string): Observable<User> {
+    return this.httpClient.post<User>(this.createUserUrl, {
+      username,
+      password,
+    });
+  }
+
+  getAllUser(): Observable<User[]> {
+    return this.httpClient.get<User[]>(this.allUsersUrl);
   }
 
   get isLogin(): Observable<boolean> {

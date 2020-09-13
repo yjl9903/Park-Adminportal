@@ -14,6 +14,11 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
+        redirectTo: 'info',
+      },
+      {
+        path: 'info',
+        pathMatch: 'full',
         component: UserInfoComponent,
       },
       {

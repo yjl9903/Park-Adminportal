@@ -18,9 +18,9 @@ export class AdminGuard implements CanActivate {
     return this.userService.isAdmin.pipe(
       map((flag) => {
         if (flag) {
-          return this.router.parseUrl('/home/park');
-        } else {
           return true;
+        } else {
+          return this.router.parseUrl('/home/park');
         }
       })
     );

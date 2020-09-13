@@ -1,1 +1,20 @@
-<p>user-list works!</p>
+<nz-table #basicTable [nzData]="users" [nzLoading]="loading">
+  <thead>
+    <tr>
+      <th class="font-weight-bold" style="width: 5em">编号</th>
+      <th class="font-weight-bold">用户名</th>
+      <th class="font-weight-bold">类型</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of basicTable.data">
+      <td class="font-weight-bold">{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>
+        <nz-tag [nzColor]="user.type === 'admin' ? 'green' : 'blue'">{{
+          user.type === 'admin' ? '超级管理员' : '普通管理员'
+        }}</nz-tag>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
