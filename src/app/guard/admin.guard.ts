@@ -3,7 +3,7 @@ import { CanActivate, UrlTree, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-import { UserService } from '../service/user.service';
+import { User, UserService } from '../service/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +15,15 @@ export class AdminGuard implements CanActivate {
   ) {}
 
   canActivate(): Observable<boolean | UrlTree> {
-    return this.userService.isAdmin.pipe(
+    return this.userService.isLogin.pipe(
       map((flag) => {
         if (flag) {
-          return true;
+          const user: User = this.userService.user;
+          if (user && user.type === 'admin') {
+            return true;
+          } else {
+            return this.router.parseUrl('/home/park');
+          }
         } else {
           return this.router.parseUrl('/home/park');
         }

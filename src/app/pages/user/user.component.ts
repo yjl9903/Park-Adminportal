@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../service/user.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -12,7 +11,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  isAdmin(): Observable<boolean> {
+  isAdmin(): boolean {
     return this.userService.isAdmin;
   }
 }

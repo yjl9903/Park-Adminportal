@@ -51,9 +51,12 @@ export class UserService {
 
   logout(): Observable<void> {
     this.user = undefined;
-    this.innerAccessToken = undefined;
     window.localStorage.removeItem(this.accessTokenKey);
-    return this.httpClient.post(this.logoutUrl, {}).pipe(map(() => {}));
+    return this.httpClient.post(this.logoutUrl, {}).pipe(
+      map(() => {
+        this.innerAccessToken = undefined;
+      })
+    );
   }
 
   createUser(username: string, password: string): Observable<User> {
@@ -87,23 +90,11 @@ export class UserService {
     }
   }
 
-  get isAdmin(): Observable<boolean> {
+  get isAdmin(): boolean {
     if (this.user) {
-      return of(this.user.type === 'admin');
-    } else if (this.innerAccessToken) {
-      return this.httpClient.get<User>(this.infoUrl).pipe(
-        map((user: User) => {
-          this.user = user;
-          return user.type === 'admin';
-        }),
-        catchError(() => {
-          this.innerAccessToken = undefined;
-          window.localStorage.removeItem(this.accessTokenKey);
-          return of(false);
-        })
-      );
+      return this.user.type === 'admin';
     } else {
-      return of(false);
+      return false;
     }
   }
 
