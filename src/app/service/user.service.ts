@@ -6,7 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 export interface User {
   id: number;
   username: string;
-  type: 'admin';
+  type: 'admin' | 'normal';
 }
 
 @Injectable({
