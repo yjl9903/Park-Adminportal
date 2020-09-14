@@ -9,6 +9,7 @@ import {
   NzLayoutModule,
   NzMenuModule,
   NzMessageModule,
+  NzModalModule,
   NzTableModule,
   NzTagModule,
 } from 'ng-zorro-antd';
@@ -19,6 +20,8 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UpdateUserModalComponent } from './update-user-modal/update-user-modal.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     UserInfoComponent,
     UserListComponent,
     CreateUserComponent,
+    UpdateUserModalComponent,
+    UpdateUserComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +45,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NzTableModule,
     NzTagModule,
     NzMessageModule,
+    NzModalModule,
     NzAlertModule,
     NzDividerModule,
   ],

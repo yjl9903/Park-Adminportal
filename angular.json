@@ -89,6 +89,7 @@
               "browserTarget": "adminportal:build:production"
             },
             "development": {
+              "optimization": false,
               "browserTarget": "adminportal:build:development"
             }
           }

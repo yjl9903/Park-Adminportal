@@ -10,6 +10,10 @@
   font-weight: bold;
 }
 
+.text-align-center {
+  text-align: center;
+}
+
 .logo {
   display: inline-block;
   width: 120px;

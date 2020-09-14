@@ -1,19 +1,26 @@
 <nz-table #basicTable [nzData]="users" [nzLoading]="loading">
   <thead>
     <tr>
-      <th class="font-weight-bold" style="width: 5em">编号</th>
+      <th class="font-weight-bold" nzWidth="5em" nzAlign="center">编号</th>
       <th class="font-weight-bold">用户名</th>
       <th class="font-weight-bold">类型</th>
+      <th class="font-weight-bold" nzAlign="center" nzWidth="5em">操作</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let user of basicTable.data">
-      <td class="font-weight-bold">{{ user.id }}</td>
+      <td class="font-weight-bold" nzAlign="center">{{ user.id }}</td>
       <td>{{ user.username }}</td>
       <td>
         <nz-tag [nzColor]="user.type === 'admin' ? 'green' : 'blue'">{{
           user.type === 'admin' ? '超级管理员' : '普通管理员'
         }}</nz-tag>
+      </td>
+      <td nzAlign="center">
+        <app-update-user
+          [username]="user.username"
+          nzSize="small"
+        ></app-update-user>
       </td>
     </tr>
   </tbody>

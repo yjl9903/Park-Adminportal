@@ -34,7 +34,7 @@ export class LoginComponent {
         this.router.navigate(['home']);
       },
       error: () => {
-        this.loginForm.reset();
+        this.loginForm.get('password').reset();
         this.message.error('服务器错误');
       },
     });

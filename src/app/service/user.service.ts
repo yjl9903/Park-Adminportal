@@ -17,6 +17,7 @@ export class UserService {
   private readonly logoutUrl = '/logout';
   private readonly createUserUrl = '/manage';
   private readonly infoUrl = '/info';
+  private readonly updateUserUrl = '/password';
   private readonly allUsersUrl = '/manage';
 
   private readonly accessTokenKey = 'access_token';
@@ -61,6 +62,13 @@ export class UserService {
 
   createUser(username: string, password: string): Observable<User> {
     return this.httpClient.post<User>(this.createUserUrl, {
+      username,
+      password,
+    });
+  }
+
+  updateUser(username: string, password: string): Observable<User> {
+    return this.httpClient.put<User>(this.updateUserUrl, {
       username,
       password,
     });

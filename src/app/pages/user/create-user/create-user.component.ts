@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 
-const identityRevealedValidator: ValidatorFn = (
+export const PasswordRevealedValidator: ValidatorFn = (
   control: FormGroup
 ): ValidationErrors | null => {
   const pass = control.get('password');
@@ -42,7 +42,7 @@ export class CreateUserComponent {
         password: [null, [Validators.required]],
         password2: [null, [Validators.required]],
       },
-      { validators: identityRevealedValidator }
+      { validators: PasswordRevealedValidator }
     );
   }
 
