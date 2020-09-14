@@ -8,7 +8,13 @@
       <th class="font-weight-bold">联系电话</th>
       <th class="font-weight-bold">车牌号</th>
       <th class="font-weight-bold">车型</th>
-      <th class="font-weight-bold">类型</th>
+      <th
+        class="font-weight-bold"
+        [nzFilters]="registerFilterItems"
+        [nzFilterFn]="registerFilterFn"
+      >
+        类型
+      </th>
     </tr>
   </thead>
   <tbody>
