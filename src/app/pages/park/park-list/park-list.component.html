@@ -1,25 +1,27 @@
 <h2>停车记录</h2>
 <nz-divider></nz-divider>
-<nz-table #nzTable [nzData]="parks" nzTableLayout="fixed">
+<nz-table #nzTable [nzData]="parkInfo" nzTableLayout="fixed">
   <thead>
     <tr>
-      <th>编号</th>
-      <th nzCustomFilter>
+      <th class="font-weight-bold" nzWidth="5em" nzAlign="center">编号</th>
+      <th class="font-weight-bold">车牌号</th>
+      <th class="font-weight-bold" nzCustomFilter>
         进入时间
         <!--      <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">-->
         <!--        <i nz-icon nzType="search"></i>-->
         <!--      </nz-filter-trigger>-->
       </th>
-      <th>离开时间</th>
-      <th>车牌号</th>
+      <th class="font-weight-bold">离开时间</th>
+      <th class="font-weight-bold">费用</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of nzTable.data">
-      <td></td>
-      <td>{{ data.name }}</td>
-      <td>{{ data.age }}</td>
-      <td>{{ data.address }}</td>
+      <td class="font-weight-bold" nzAlign="center">{{ data.id }}</td>
+      <td>{{ data.plate }}</td>
+      <td>{{ data.entrytime | date: 'yyyy-MM-dd hh:mm:ss' }}</td>
+      <td>{{ data.departuretime | date: 'yyyy-MM-dd hh:mm:ss' }}</td>
+      <td>{{ data.fee }}</td>
     </tr>
   </tbody>
 </nz-table>

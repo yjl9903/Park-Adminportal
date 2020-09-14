@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Card, CardService } from '../../../service/card.service';
 import { NzMessageService } from 'ng-zorro-antd';
-import { ParkService } from '../../../service/park.service';
+import { ParkDto, ParkService } from '../../../service/park.service';
+import { carTypes } from '../../card/create-card/create-card.component';
 
 @Component({
   selector: 'app-create-park',
@@ -10,6 +11,8 @@ import { ParkService } from '../../../service/park.service';
   styleUrls: ['./create-park.component.css'],
 })
 export class CreateParkComponent {
+  carTypes = carTypes;
+
   createForm: FormGroup;
 
   constructor(
@@ -20,7 +23,7 @@ export class CreateParkComponent {
   ) {
     this.createForm = formBuilder.group({
       plate: [null, [Validators.required, Validators.maxLength(20)]],
-      type: [null, [Validators.maxLength(8)]],
+      type: [carTypes[0], [Validators.maxLength(8)]],
     });
   }
 
@@ -40,14 +43,19 @@ export class CreateParkComponent {
     body.register = false;
     this.cardService.createCard(body).subscribe({
       complete: () => {
-        const parkDto = { plate: body.plate, timestamp: Date.now() };
+        const parkDto: ParkDto = { plate: body.plate, timestamp: Date.now() };
         const park =
           inOut === 'in'
             ? this.parkService.parkIn(parkDto)
             : this.parkService.parkOut(parkDto);
         park.subscribe({
           complete: () => {
-            this.message.success('停车成功');
+            if (inOut === 'in') {
+              this.message.success('进入成功');
+            } else {
+              this.message.success('离开成功');
+            }
+            this.createForm.get('plate').reset();
           },
           error: () => {
             this.message.error('停车失败');

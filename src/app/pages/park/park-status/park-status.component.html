@@ -1,0 +1,18 @@
+<h2>停车场状态</h2>
+<nz-divider></nz-divider>
+<nz-table #nzTable [nzData]="parkStatus" nzTableLayout="fixed">
+  <thead>
+    <tr>
+      <th class="font-weight-bold" nzWidth="5em" nzAlign="center">编号</th>
+      <th class="font-weight-bold" nzCustomFilter>进入时间</th>
+      <th class="font-weight-bold">车牌号</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of nzTable.data">
+      <td class="font-weight-bold" nzAlign="center">{{ data.id }}</td>
+      <td>{{ data.timestamp | date: 'yyyy-MM-dd hh:mm:ss' }}</td>
+      <td>{{ data.plate }}</td>
+    </tr>
+  </tbody>
+</nz-table>

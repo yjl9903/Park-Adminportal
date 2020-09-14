@@ -14,10 +14,14 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-control nzErrorTip="请输入车型">
-      <nz-input-group nzPrefixIcon="car">
-        <input type="text" nz-input formControlName="type" placeholder="车型" />
-      </nz-input-group>
+    <nz-form-control nzErrorTip="请选择车型">
+      <nz-select formControlName="type">
+        <nz-option
+          *ngFor="let text of carTypes"
+          [nzValue]="text"
+          [nzLabel]="text"
+        ></nz-option>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
   <button nz-button nzType="primary" (click)="submitForm('in')">停车</button>

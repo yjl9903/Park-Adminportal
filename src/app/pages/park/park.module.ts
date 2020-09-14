@@ -10,6 +10,7 @@ import {
   NzLayoutModule,
   NzMenuModule,
   NzMessageModule,
+  NzSelectModule,
   NzStatisticModule,
   NzTableModule,
 } from 'ng-zorro-antd';
@@ -20,6 +21,7 @@ import { CreateParkComponent } from './create-park/create-park.component';
 import { ParkListComponent } from './park-list/park-list.component';
 import { ParkStatisticComponent } from './park-statistic/park-statistic.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ParkStatusComponent } from './park-status/park-status.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CreateParkComponent,
     ParkListComponent,
     ParkStatisticComponent,
+    ParkStatusComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NzGridModule,
     NzFormModule,
     NzInputModule,
+    NzSelectModule,
     NzMenuModule,
     NzDividerModule,
     NzStatisticModule,

@@ -4,6 +4,7 @@ import { ParkComponent } from './park.component';
 import { CreateParkComponent } from './create-park/create-park.component';
 import { ParkListComponent } from './park-list/park-list.component';
 import { ParkStatisticComponent } from './park-statistic/park-statistic.component';
+import { ParkStatusComponent } from './park-status/park-status.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
         path: 'create',
         pathMatch: 'full',
         component: CreateParkComponent,
+      },
+      {
+        path: 'status',
+        pathMatch: 'full',
+        component: ParkStatusComponent,
       },
       {
         path: 'list',

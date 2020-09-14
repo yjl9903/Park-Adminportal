@@ -8,6 +8,7 @@ import {
   NzLayoutModule,
   NzMenuModule,
   NzMessageModule,
+  NzSelectModule,
   NzTableModule,
   NzTagModule,
 } from 'ng-zorro-antd';
@@ -26,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
+    NzSelectModule,
     NzButtonModule,
     NzLayoutModule,
     NzMenuModule,
