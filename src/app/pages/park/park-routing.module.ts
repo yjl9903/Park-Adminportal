@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ParkComponent } from './park.component';
 import { CreateParkComponent } from './create-park/create-park.component';
+import { ParkListComponent } from './park-list/park-list.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,11 @@ const routes: Routes = [
         path: 'create',
         pathMatch: 'full',
         component: CreateParkComponent,
+      },
+      {
+        path: 'list',
+        pathMatch: 'full',
+        component: ParkListComponent,
       },
     ],
   },
