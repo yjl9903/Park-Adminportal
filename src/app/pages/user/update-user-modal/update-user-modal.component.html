@@ -9,17 +9,9 @@
     style="margin-bottom: 16px"
   ></nz-alert>
   <nz-form-item>
-    <nz-form-control>
-      <nz-input-group nzPrefixIcon="user">
-        <input
-          type="text"
-          nz-input
-          disabled
-          formControlName="username"
-          [value]="username"
-        />
-      </nz-input-group>
-    </nz-form-control>
+    <nz-input-group nzPrefixIcon="user">
+      <input type="text" nz-input disabled [value]="username" />
+    </nz-input-group>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control nzErrorTip="请输入密码">
