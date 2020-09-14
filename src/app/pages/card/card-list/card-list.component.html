@@ -1,2 +1,28 @@
 <h2>所有卡</h2>
 <nz-divider></nz-divider>
+<nz-table #table [nzData]="cards" [nzLoading]="loading">
+  <thead>
+    <tr>
+      <th class="font-weight-bold" nzWidth="5em" nzAlign="center">编号</th>
+      <th class="font-weight-bold">姓名</th>
+      <th class="font-weight-bold">联系电话</th>
+      <th class="font-weight-bold">车牌号</th>
+      <th class="font-weight-bold">车型</th>
+      <th class="font-weight-bold">类型</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let card of table.data">
+      <td class="font-weight-bold" nzAlign="center">{{ card.id }}</td>
+      <td>{{ card.name }}</td>
+      <td>{{ card.phone }}</td>
+      <td>{{ card.plate }}</td>
+      <td>{{ card.type }}</td>
+      <td>
+        <nz-tag [nzColor]="card.register ? 'green' : 'blue'">{{
+          card.register ? '正式卡' : '临时卡'
+        }}</nz-tag>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

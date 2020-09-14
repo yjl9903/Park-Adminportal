@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ParkComponent } from './park.component';
 import { CreateParkComponent } from './create-park/create-park.component';
 import { ParkListComponent } from './park-list/park-list.component';
+import { ParkStatisticComponent } from './park-statistic/park-statistic.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,12 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'create',
+        redirectTo: 'statistic',
+      },
+      {
+        path: 'statistic',
+        pathMatch: 'full',
+        component: ParkStatisticComponent,
       },
       {
         path: 'create',

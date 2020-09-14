@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./park-list.component.css'],
 })
 export class ParkListComponent implements OnInit {
+  parks: any[] = [];
+
   constructor() {}
 
   ngOnInit(): void {}

@@ -2,18 +2,6 @@
 <nz-divider></nz-divider>
 <form [formGroup]="createForm" (ngSubmit)="submitForm()">
   <nz-form-item>
-    <nz-form-control nzErrorTip="请输入车牌号">
-      <nz-input-group nzPrefixIcon="car">
-        <input
-          type="text"
-          nz-input
-          formControlName="car"
-          placeholder="车牌号"
-        />
-      </nz-input-group>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
     <nz-form-control nzErrorTip="请输入姓名">
       <nz-input-group nzPrefixIcon="user">
         <input type="text" nz-input formControlName="name" placeholder="姓名" />
@@ -29,6 +17,25 @@
           formControlName="phone"
           placeholder="联系电话"
         />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入车牌号">
+      <nz-input-group nzPrefixIcon="car">
+        <input
+          type="text"
+          nz-input
+          formControlName="plate"
+          placeholder="车牌号"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入车型">
+      <nz-input-group nzPrefixIcon="car">
+        <input type="text" nz-input formControlName="type" placeholder="车型" />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>

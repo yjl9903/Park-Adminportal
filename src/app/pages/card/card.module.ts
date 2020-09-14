@@ -7,6 +7,9 @@ import {
   NzInputModule,
   NzLayoutModule,
   NzMenuModule,
+  NzMessageModule,
+  NzTableModule,
+  NzTagModule,
 } from 'ng-zorro-antd';
 
 import { CardComponent } from './card.component';
@@ -26,6 +29,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzButtonModule,
     NzLayoutModule,
     NzMenuModule,
+    NzMessageModule,
+    NzTableModule,
+    NzTagModule,
     NzDividerModule,
   ],
 })
