@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ParkService, ParkStatus } from '../../../service/park.service';
 
 @Component({
@@ -10,10 +10,8 @@ export class ParkStatusComponent {
   parkStatus: ParkStatus[] = [];
 
   constructor(private readonly parkService: ParkService) {
-    this.parkStatus = parkService.parkStatus;
-    this.parkService.parkStatusObs.subscribe(
-      (statuses) =>
-        (this.parkStatus = statuses.sort((a, b) => b.timestamp - a.timestamp))
+    this.parkService.parkStatusSub.subscribe(
+      (statuses) => (this.parkStatus = statuses)
     );
   }
 }

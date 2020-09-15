@@ -10,8 +10,7 @@ export class ParkListComponent implements OnInit {
   parkInfo: ParkInfo[] = [];
 
   constructor(private readonly parkService: ParkService) {
-    this.parkInfo = parkService.parkInfo.sort((a, b) => b.id - a.id);
-    parkService.parkInfoObs.subscribe((info) => {
+    parkService.parkInfoSub.subscribe((info) => {
       this.parkInfo = [info, ...this.parkInfo];
     });
   }

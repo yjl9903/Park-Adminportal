@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { concat, from, interval, Observable, ReplaySubject } from 'rxjs';
-import { filter, map, mergeMap, retry } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  concat,
+  from,
+  interval,
+  Observable,
+  ReplaySubject,
+} from 'rxjs';
+import { filter, mergeMap, retry } from 'rxjs/operators';
 
 export interface ParkDto {
   plate: string;
@@ -30,17 +37,14 @@ export class ParkService {
   static allParkStatusUrl = '/status';
   static allParkInfoUrl = '/information';
 
-  parkStatus: ParkStatus[] = [];
-  parkStatusObs: Observable<ParkStatus[]>;
-
-  parkInfo: ParkInfo[] = [];
+  parkStatusSub: BehaviorSubject<ParkStatus[]>;
   parkInfoSub: ReplaySubject<ParkInfo>;
-  parkInfoObs: Observable<ParkInfo>;
 
   constructor(private readonly httpClient: HttpClient) {
     const intervalTime = 2000;
 
-    this.parkStatusObs = concat(
+    this.parkStatusSub = new BehaviorSubject<ParkStatus[]>([]);
+    const parkStatusObs = concat(
       this.httpClient
         .get<ParkStatus[]>(ParkService.allParkStatusUrl)
         .pipe(retry()),
@@ -50,16 +54,15 @@ export class ParkService {
         ),
         retry()
       )
-    ).pipe(
-      map((statuses: ParkStatus[]) => {
-        this.parkStatus = statuses;
-        return statuses;
-      })
     );
+
+    parkStatusObs.subscribe((statuses: ParkStatus[]) => {
+      this.parkStatusSub.next(statuses);
+    });
 
     this.parkInfoSub = new ReplaySubject<ParkInfo>(Number.MAX_SAFE_INTEGER);
     const parkInfoSet = new Set<number>();
-    this.parkInfoObs = concat(
+    const parkInfoObs = concat(
       this.httpClient.get<ParkInfo[]>(ParkService.allParkInfoUrl),
       interval(intervalTime).pipe(
         mergeMap(() =>
@@ -74,7 +77,6 @@ export class ParkService {
       filter((info: ParkInfo) => {
         if (!parkInfoSet.has(info.id)) {
           parkInfoSet.add(info.id);
-          this.parkInfoSub.next(info);
           return true;
         } else {
           return false;
@@ -82,7 +84,9 @@ export class ParkService {
       })
     );
 
-    this.parkInfoSub.subscribe((info: ParkInfo) => this.parkInfo.unshift(info));
+    parkInfoObs.subscribe((info) => {
+      this.parkInfoSub.next(info);
+    });
   }
 
   parkIn(parkDto: ParkDto): Observable<ParkStatus> {
