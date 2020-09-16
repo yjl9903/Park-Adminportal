@@ -13,9 +13,12 @@ import {
   NzMenuModule,
   NzMessageModule,
   NzSelectModule,
+  NzSpinModule,
   NzStatisticModule,
   NzTableModule,
 } from 'ng-zorro-antd';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 import { ParkComponent } from './park.component';
 import { ParkRoutingModule } from './park-routing.module';
@@ -51,7 +54,11 @@ import { ParkStatusComponent } from './park-status/park-status.component';
     NzTableModule,
     NzButtonModule,
     NzDropDownModule,
+    NzSpinModule,
     NzMessageModule,
+    NgxEchartsModule.forRoot({
+      echarts,
+    }),
   ],
   exports: [ParkComponent],
 })

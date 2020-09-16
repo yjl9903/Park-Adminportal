@@ -18,11 +18,12 @@
 .logo {
   display: inline-block;
   width: 120px;
+  /*margin-left: -40px;*/
   height: 31px;
   color: white !important;
   line-height: 31px;
   font-size: 16px;
-  margin: 16px 30px 16px 0;
+  margin: 16px 15px 16px -25px;
   float: left;
 }
 

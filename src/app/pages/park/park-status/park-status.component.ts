@@ -11,7 +11,7 @@ export class ParkStatusComponent {
 
   constructor(private readonly parkService: ParkService) {
     this.parkService.parkStatusSub.subscribe(
-      (statuses) => (this.parkStatus = statuses)
+      (statuses) => (this.parkStatus = statuses.reverse())
     );
   }
 }

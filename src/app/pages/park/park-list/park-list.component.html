@@ -61,8 +61,8 @@
           {{ data.plate }}
         </button>
       </td>
-      <td>{{ data.entrytime | date: 'yyyy-MM-dd hh:mm:ss' }}</td>
-      <td>{{ data.departuretime | date: 'yyyy-MM-dd hh:mm:ss' }}</td>
+      <td>{{ data.entrytime | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+      <td>{{ data.departuretime | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
       <td class="fee-font">{{ data.fee | currency: undefined }}</td>
     </tr>
   </tbody>
