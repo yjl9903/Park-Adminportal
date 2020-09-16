@@ -10,6 +10,7 @@ import {
   LockOutline,
   CarOutline,
   PhoneOutline,
+  CloseCircleFill,
 } from '@ant-design/icons-angular/icons';
 
 const icons = [
@@ -20,6 +21,7 @@ const icons = [
   FormOutline,
   LockOutline,
   CarOutline,
+  CloseCircleFill,
   PhoneOutline,
 ];
 

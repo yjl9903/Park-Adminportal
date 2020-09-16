@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ParkInfo, ParkService } from '../../../service/park.service';
 import {
   differenceInCalendarDays,
@@ -8,6 +8,8 @@ import {
   subDays,
   endOfDay,
 } from 'date-fns';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const today = new Date();
 
@@ -24,26 +26,48 @@ const Ranges = {
   templateUrl: './park-list.component.html',
   styleUrls: ['./park-list.component.css'],
 })
-export class ParkListComponent {
+export class ParkListComponent implements OnInit, OnDestroy {
   ranges = Ranges;
 
+  sub: Subscription;
   parkInfoAll: ParkInfo[] = [];
   parkInfo: ParkInfo[] = [];
-  filterFn: (info: ParkInfo) => boolean = () => true;
+  searchValue = '';
 
-  constructor(private readonly parkService: ParkService) {
-    parkService.parkInfoSub.subscribe((info) => {
-      this.pushFront(info);
+  timeFilterFn: (info: ParkInfo) => boolean = () => true;
+  plateFilterFn: (info: ParkInfo) => boolean = () => true;
+
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly parkService: ParkService
+  ) {
+    this.sub = parkService.parkInfoSub.subscribe(this.pushFront.bind(this));
+  }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.searchValue = params.plate;
+      if (params.plate) {
+        this.plateFilterFn = (info: ParkInfo) => info.plate === params.plate;
+      } else {
+        this.plateFilterFn = () => true;
+      }
+      this.pushFront();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   pushFront(info?: ParkInfo): void {
     if (info) {
       this.parkInfoAll.unshift(info);
-      this.parkInfo = this.parkInfoAll.filter(this.filterFn);
-    } else {
-      this.parkInfo = this.parkInfoAll.filter(this.filterFn);
     }
+    this.parkInfo = this.parkInfoAll
+      .filter(this.timeFilterFn)
+      .filter(this.plateFilterFn);
   }
 
   disabledDate(current: Date): boolean {
@@ -52,16 +76,27 @@ export class ParkListComponent {
 
   handleClose(range: Date[]): void {
     if (range.length === 0) {
-      this.filterFn = () => true;
+      this.timeFilterFn = () => true;
       this.pushFront();
     }
   }
 
   handleSelectRange(range): void {
-    this.filterFn = (info: ParkInfo) => {
+    this.timeFilterFn = (info: ParkInfo) => {
       const entry = info.entrytime;
       return range[0] <= entry && entry <= range[1];
     };
     this.pushFront();
+  }
+
+  goSearch(plate: string): void {
+    this.router.navigate(['.'], {
+      relativeTo: this.route,
+      queryParams: { plate },
+    });
+  }
+
+  goParkInfo(plate: string): void {
+    this.goSearch(plate);
   }
 }

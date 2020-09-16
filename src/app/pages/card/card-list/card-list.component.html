@@ -22,7 +22,16 @@
       <td class="font-weight-bold" nzAlign="center">{{ card.id }}</td>
       <td>{{ card.name }}</td>
       <td>{{ card.phone }}</td>
-      <td>{{ card.plate }}</td>
+      <td>
+        <button
+          nz-button
+          nzType="link"
+          (click)="goParkInfo(card.plate)"
+          style="text-align: left; padding-left: 0"
+        >
+          {{ card.plate }}
+        </button>
+      </td>
       <td>{{ card.type }}</td>
       <td>
         <nz-tag [nzColor]="card.register ? 'green' : 'blue'">{{

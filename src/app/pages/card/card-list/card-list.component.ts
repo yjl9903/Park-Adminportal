@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Card, CardService } from '../../../service/card.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-list',
@@ -19,10 +20,19 @@ export class CardListComponent {
     return list.some((value) => value === card.register);
   }
 
-  constructor(private readonly cardService: CardService) {
+  constructor(
+    private readonly router: Router,
+    private readonly cardService: CardService
+  ) {
     cardService.getAllCards().subscribe((cards: Card[]) => {
       this.cards = cards;
       this.loading = false;
+    });
+  }
+
+  goParkInfo(plate: string): void {
+    this.router.navigate(['/', 'home', 'park', 'list'], {
+      queryParams: { plate },
     });
   }
 }

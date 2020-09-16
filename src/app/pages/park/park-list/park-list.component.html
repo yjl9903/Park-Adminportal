@@ -1,7 +1,7 @@
 <h2>停车记录</h2>
 <nz-divider></nz-divider>
 <div style="margin-bottom: 16px">
-  <span class="font-weight-bold" style="margin-right: 8px">时间段</span>
+  <span class="font-weight-bold" style="margin-right: 8px">时间</span>
   <nz-range-picker
     nzShowTime
     [nzRanges]="ranges"
@@ -11,6 +11,31 @@
     (ngModelChange)="handleClose($event)"
     (nzOnOk)="handleSelectRange($event)"
   ></nz-range-picker>
+</div>
+<div style="margin-bottom: 16px">
+  <span class="font-weight-bold" style="margin-right: 8px">车牌</span>
+  <nz-input-group
+    nzPrefixIcon="car"
+    style="width: auto"
+    [nzSuffix]="inputClearTpl"
+  >
+    <input
+      type="text"
+      nz-input
+      [(ngModel)]="searchValue"
+      (keyup.enter)="goSearch(searchValue)"
+    />
+  </nz-input-group>
+  <ng-template #inputClearTpl>
+    <i
+      nz-icon
+      nzTheme="fill"
+      nzType="close-circle"
+      class="ant-input-clear-icon"
+      *ngIf="searchValue"
+      (click)="goSearch((searchValue = null))"
+    ></i
+  ></ng-template>
 </div>
 <nz-table #nzTable [nzData]="parkInfo" nzTableLayout="fixed">
   <thead>
@@ -25,7 +50,17 @@
   <tbody>
     <tr *ngFor="let data of nzTable.data">
       <td class="font-weight-bold" nzAlign="center">{{ data.id }}</td>
-      <td>{{ data.plate }}</td>
+      <td>
+        <button
+          nzBlock
+          nz-button
+          nzType="link"
+          (click)="goParkInfo(data.plate)"
+          style="text-align: left; padding-left: 0"
+        >
+          {{ data.plate }}
+        </button>
+      </td>
       <td>{{ data.entrytime | date: 'yyyy-MM-dd hh:mm:ss' }}</td>
       <td>{{ data.departuretime | date: 'yyyy-MM-dd hh:mm:ss' }}</td>
       <td class="fee-font">{{ data.fee | currency: undefined }}</td>

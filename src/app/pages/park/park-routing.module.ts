@@ -33,7 +33,7 @@ const routes: Routes = [
       },
       {
         path: 'list',
-        pathMatch: 'full',
+        // pathMatch: 'prefix',
         component: ParkListComponent,
       },
     ],
