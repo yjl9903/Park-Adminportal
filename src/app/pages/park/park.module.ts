@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   NzButtonModule,
+  NzDatePickerModule,
   NzDividerModule,
   NzDropDownModule,
   NzFormModule,
@@ -40,6 +41,7 @@ import { ParkStatusComponent } from './park-status/park-status.component';
     NzGridModule,
     NzFormModule,
     NzInputModule,
+    NzDatePickerModule,
     NzSelectModule,
     NzMenuModule,
     NzDividerModule,

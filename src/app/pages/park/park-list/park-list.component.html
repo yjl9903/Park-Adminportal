@@ -1,16 +1,23 @@
 <h2>停车记录</h2>
 <nz-divider></nz-divider>
+<div style="margin-bottom: 16px">
+  <span class="font-weight-bold" style="margin-right: 8px">时间段</span>
+  <nz-range-picker
+    nzShowTime
+    [nzRanges]="ranges"
+    [nzDisabledDate]="disabledDate"
+    [nzPlaceHolder]="['开始时间', '结束时间']"
+    ngModel
+    (ngModelChange)="handleClose($event)"
+    (nzOnOk)="handleSelectRange($event)"
+  ></nz-range-picker>
+</div>
 <nz-table #nzTable [nzData]="parkInfo" nzTableLayout="fixed">
   <thead>
     <tr>
       <th class="font-weight-bold" nzWidth="5em" nzAlign="center">编号</th>
       <th class="font-weight-bold">车牌号</th>
-      <th class="font-weight-bold" nzCustomFilter>
-        进入时间
-        <!--      <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">-->
-        <!--        <i nz-icon nzType="search"></i>-->
-        <!--      </nz-filter-trigger>-->
-      </th>
+      <th class="font-weight-bold">进入时间</th>
       <th class="font-weight-bold">离开时间</th>
       <th class="font-weight-bold">费用</th>
     </tr>
@@ -21,17 +28,7 @@
       <td>{{ data.plate }}</td>
       <td>{{ data.entrytime | date: 'yyyy-MM-dd hh:mm:ss' }}</td>
       <td>{{ data.departuretime | date: 'yyyy-MM-dd hh:mm:ss' }}</td>
-      <td>{{ data.fee }}</td>
+      <td class="fee-font">{{ data.fee | currency: undefined }}</td>
     </tr>
   </tbody>
 </nz-table>
-<nz-dropdown-menu #menu="nzDropdownMenu">
-  <!--  <div class="ant-table-filter-dropdown">-->
-  <!--    <div class="search-box">-->
-  <!--      <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />-->
-  <!--      <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">-->
-  <!--        Search-->
-  <!--      </button>-->
-  <!--    </div>-->
-  <!--  </div>-->
-</nz-dropdown-menu>
