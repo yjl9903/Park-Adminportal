@@ -11,17 +11,22 @@ import { NzMessageService } from 'ng-zorro-antd';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  loginForm: FormGroup = this.formBuilder.group({
-    username: [null, [Validators.required]],
-    password: [null, [Validators.required]],
-  });
+  loginForm: FormGroup;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly userService: UserService,
     private readonly message: NzMessageService
-  ) {}
+  ) {
+    this.loginForm = this.formBuilder.group({
+      username: [
+        this.userService.defaultUsername || null,
+        [Validators.required],
+      ],
+      password: [null, [Validators.required]],
+    });
+  }
 
   submitForm(): void {
     for (const i of Object.keys(this.loginForm.controls)) {
@@ -33,9 +38,18 @@ export class LoginComponent {
       complete: () => {
         this.router.navigate(['home']);
       },
-      error: () => {
+      error: (err) => {
         this.loginForm.get('password').reset();
-        this.message.error('服务器错误');
+        if (err.error instanceof ErrorEvent) {
+          this.message.error('服务器错误');
+        } else {
+          const message = err.error?.status;
+          if (message.startsWith('Wrong')) {
+            this.message.error('密码错误');
+          } else {
+            this.message.error(`[${err.status}]: ${err.error.status}`);
+          }
+        }
       },
     });
   }
